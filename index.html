@@ -1,0 +1,2653 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkyDeco - Décoration d'intérieur</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Variables et styles globaux - STYLE ULTRA RAFFINÉ */
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #333333;
+            --accent-color: #8B7355; /* Brun doré raffiné */
+            --accent-light: #a58a6a;
+            --accent-dark: #6d5a44;
+            --light-color: #f8f9fa;
+            --dark-color: #1a1a1a;
+            --gray-light: #e9ecef;
+            --text-color: #333;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.12);
+            --transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            --border-radius: 12px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+
+        /* Header avec logo au-dessus des liens - MODIFIÉ : RÉDUCTION DE L'ESPACE */
+        header {
+            background-color: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            padding: 0.2rem 0; /* Réduit le padding */
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Logo au-dessus - ESPACE RÉDUIT ET LOGO AGRANDI */
+        .logo-container {
+            margin-bottom: 0.2rem; /* Réduit de 0.3rem à 0.2rem */
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .logo-img {
+            height: 120px; /* AGRANDI de 100px à 120px */
+            width: auto;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+
+        .logo-img:hover {
+            transform: scale(1.02);
+        }
+
+        /* Navigation avec tous les liens sur une ligne sous le logo - ESPACE RÉDUIT */
+        .nav-desktop {
+            display: flex;
+            gap: 1.2rem; /* Réduit l'espace entre les liens */
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            width: 100%;
+            padding-top: 0;
+            margin-top: -0.2rem; /* Compensation pour rapprocher les liens du logo */
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: #000000;
+            font-weight: 350; /* Réduit le bold de 400 à 350 */
+            font-size: 0.95rem; /* Légèrement réduit */
+            padding: 0.2rem 0; /* Réduit le padding */
+            position: relative;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            text-transform: uppercase;
+            letter-spacing: 0.8px; /* Légèrement réduit */
+        }
+
+        .nav-link:hover {
+            color: #666666;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1.5px; /* Légèrement réduit */
+            background-color: #666666;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Menu mobile - MODIFIÉ POUR L'ESPACE RÉDUIT */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem; /* Réduit */
+            color: #000000;
+            cursor: pointer;
+            position: absolute;
+            top: 1.2rem; /* Ajusté */
+            right: 2rem;
+        }
+
+        .nav-mobile {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background-color: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            flex-direction: column;
+            padding: 1rem; /* Réduit */
+            z-index: 999;
+        }
+
+        .nav-mobile.active {
+            display: flex;
+        }
+
+        /* Liens du menu mobile également en noir/gris et majuscules */
+        .nav-mobile .nav-link {
+            margin: 0.6rem 0; /* Réduit */
+            color: #000000;
+            font-weight: 350; /* Réduit le bold */
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            font-size: 0.9rem; /* Réduit */
+        }
+
+        .nav-mobile .nav-link:hover {
+            color: #666666;
+        }
+
+        /* Section Hero avec carrousel */
+        .hero {
+            height: 80vh;
+            max-height: 700px;
+            position: relative;
+            overflow: hidden;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .carousel {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .carousel-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            transform: scale(1.05);
+            animation: zoomEffect 25s infinite;
+        }
+
+        @keyframes zoomEffect {
+            0%, 100% { transform: scale(1.05); }
+            50% { transform: scale(1); }
+        }
+
+        .carousel-slide.active {
+            opacity: 1;
+            z-index: 1;
+        }
+
+        /* Slogans en blanc pour chaque image du hero - MODIFIÉ : EN BAS À GAUCHE */
+        .slide-slogan {
+            position: absolute;
+            bottom: 120px;
+            left: 50px;
+            transform: translateX(0);
+            color: white;
+            text-align: left;
+            z-index: 2;
+            width: 50%;
+            max-width: 600px;
+            opacity: 0;
+            transition: opacity 1s ease;
+            pointer-events: none;
+        }
+
+        .carousel-slide.active .slide-slogan {
+            opacity: 1;
+        }
+
+        .slogan-text {
+            font-size: 3.2rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-family: 'Cormorant Garamond', serif;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
+            line-height: 1.1;
+        }
+
+        .slogan-subtext {
+            font-size: 1.3rem;
+            font-weight: 300;
+            letter-spacing: 1px;
+            font-family: 'Montserrat', sans-serif;
+            opacity: 0.9;
+            text-shadow: 0 1px 5px rgba(0, 0, 0, 0.7);
+            padding-left: 5px;
+        }
+
+        /* Overlay pour meilleure lisibilité des slogans */
+        .slogan-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.3) 100%);
+            z-index: 1;
+        }
+
+        /* Contrôles du carrousel - MODIFIÉS : PLUS PETITS ET EN BAS À DROITE */
+        .carousel-controls {
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            z-index: 10;
+            display: flex;
+            gap: 10px;
+            background: none;
+            padding: 0;
+            border-radius: 0;
+            backdrop-filter: none;
+        }
+
+        .carousel-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.6);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            padding: 0;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+
+        .carousel-dot.active {
+            background-color: white;
+            transform: scale(1.2);
+            border-color: white;
+        }
+
+        .carousel-dot:hover {
+            background-color: rgba(255, 255, 255, 0.9);
+            transform: scale(1.1);
+            border-color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* PLUS D'ESPACE ENTRE LE HERO ET LA SECTION DES CARTES */
+        .hero-separator {
+            height: 150px;
+            width: 100%;
+            background: white;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        @media (max-width: 768px) {
+            .hero-separator {
+                height: 120px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-separator {
+                height: 100px;
+            }
+        }
+
+        .separator-content {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            padding: 0 2rem;
+            max-width: 800px;
+        }
+
+        .separator-title {
+            font-size: 2rem;
+            color: var(--dark-color);
+            font-weight: 300;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+            font-family: 'Cormorant Garamond', serif;
+            opacity: 0.9;
+        }
+
+        .separator-line {
+            height: 1px;
+            width: 250px;
+            background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
+            margin: 0 auto 25px;
+            position: relative;
+        }
+
+        .separator-line::before,
+        .separator-line::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: var(--accent-color);
+        }
+
+        .separator-line::before {
+            left: -25px;
+        }
+
+        .separator-line::after {
+            right: -25px;
+        }
+
+        .separator-subtitle {
+            font-size: 1.1rem;
+            color: #666;
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: 1.5px;
+            line-height: 1.6;
+        }
+
+        /* =========================================== */
+        /* SECTION 8 CARTES EN PLEINE HAUTEUR D'ÉCRAN - HAUTEUR AUGMENTÉE */
+        /* =========================================== */
+        .fullscreen-cards-section {
+            min-height: 140vh; /* Augmenté de 120vh à 140vh */
+            display: flex;
+            flex-direction: column;
+            background-color: white;
+            padding: 20px;
+            margin: 0;
+        }
+
+        .cards-row {
+            display: flex;
+            flex: 1;
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        /* Rangées de 3 cartes - HAUTEUR AUGMENTÉE */
+        .cards-row.top-row,
+        .cards-row.middle-row {
+            height: calc(45vh - 20px); /* Augmenté de 38vh à 45vh */
+        }
+
+        /* Rangée du bas avec 2 cartes - HAUTEUR AUGMENTÉE */
+        .cards-row.bottom-row {
+            height: calc(38vh - 20px); /* Augmenté de 30vh à 38vh */
+        }
+
+        .large-card {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            margin: 10px;
+            border-radius: 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            perspective: 1000px;
+            cursor: pointer;
+        }
+
+        /* Pour la rangée du bas avec seulement 2 cartes */
+        .bottom-row .large-card {
+            flex: 1;
+            margin: 10px;
+        }
+
+        .card-content {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            transform-style: preserve-3d;
+            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .large-card:hover .card-content {
+            transform: rotateY(180deg);
+        }
+
+        .card-front,
+        .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+        }
+
+        .card-front {
+            transform: rotateY(0deg);
+        }
+
+        .card-back {
+            transform: rotateY(180deg);
+            background-color: #f8f9fa;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .card-background {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.7s ease;
+        }
+
+        .image-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.3) 100%);
+            z-index: 1;
+            opacity: 0.7;
+            transition: all 0.3s ease;
+        }
+
+        .card-back h3 {
+            color: var(--dark-color);
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+
+        .card-back p {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .card-back-icon {
+            font-size: 2rem;
+            color: var(--accent-color);
+            margin-bottom: 15px;
+        }
+
+        /* Effet de zoom au survol */
+        .large-card:hover .card-background {
+            transform: scale(1.05);
+        }
+
+        .large-card:hover .image-overlay {
+            opacity: 0.9;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.5) 100%);
+        }
+
+        /* Animation d'entrée pour les cartes */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .large-card {
+            animation: fadeInUp 0.8s ease;
+        }
+
+        /* =========================================== */
+        /* SECTION NOS CATÉGORIES - CARTES AGRANDIES SANS BORDURES ARRONDIES */
+        /* =========================================== */
+        .categories-section {
+            padding: 120px 0;
+            background-color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .categories-container {
+            max-width: 1600px; /* Augmenté de 1400px à 1600px */
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 100px; /* Augmenté de 80px à 100px */
+        }
+
+        .section-title {
+            font-size: 3.5rem; /* Augmenté de 3.2rem à 3.5rem */
+            color: var(--dark-color);
+            margin-bottom: 30px; /* Augmenté de 25px à 30px */
+            font-weight: 300;
+            position:relative;
+            display: inline-block;
+            font-family: 'Cormorant Garamond', serif;
+            letter-spacing: 2.5px; /* Augmenté de 2px à 2.5px */
+        }
+
+        .section-subtitle {
+            font-size: 1.3rem; /* Augmenté de 1.2rem à 1.3rem */
+            color: #666;
+            max-width: 800px; /* Augmenté de 700px à 800px */
+            margin: 0 auto;
+            line-height: 1.8;
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: 0.7px; /* Augmenté de 0.5px à 0.7px */
+        }
+
+        /* Grille de 4 cartes - CARTES TRÈS AGRANDIES */
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 60px; /* Augmenté de 40px à 60px */
+            margin-top: 80px; /* Augmenté de 60px à 80px */
+            max-width: 1400px; /* Augmenté de 1200px à 1400px */
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        @media (max-width: 1100px) {
+            .categories-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 50px; /* Augmenté de 30px à 50px */
+            }
+        }
+
+        @media (max-width: 768px) {
+            .categories-grid {
+                grid-template-columns: 1fr;
+                gap: 50px; /* Augmenté de 30px à 50px */
+                max-width: 700px; /* Augmenté de 500px à 700px */
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+
+        /* Carte catégorie - TRÈS AGRANDIE SANS BORDURES ARRONDIES */
+        .category-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 0; /* MODIFIÉ : PAS DE BORDS ARRONDIS */
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15); /* Ombre plus prononcée */
+            height: 600px; /* TRÈS AGRANDIE de 450px à 600px */
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+            transform: translateY(30px);
+            border: 2px solid rgba(139, 115, 85, 0.15); /* Bordure plus épaisse */
+            cursor: pointer;
+            aspect-ratio: 1 / 1;
+        }
+
+        .category-card.animate {
+            animation: slideUp 0.8s ease forwards;
+        }
+
+        @keyframes slideUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .category-card:nth-child(1) { animation-delay: 0.1s; }
+        .category-card:nth-child(2) { animation-delay: 0.2s; }
+        .category-card:nth-child(3) { animation-delay: 0.3s; }
+        .category-card:nth-child(4) { animation-delay: 0.4s; }
+
+        .category-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 1.5s cubic-bezier(0.4, 0, 0.2, 1); /* Transition plus longue */
+            filter: brightness(0.9);
+        }
+
+        /* Overlay permanent avec le nom de la catégorie */
+        .category-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(139, 115, 85, 0.15) 0%, rgba(0, 0, 0, 0.5) 100%); /* Overlay plus foncé */
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 50px; /* Augmenté de 30px à 50px */
+            color: white;
+            opacity: 1;
+            transition: all 0.8s ease;
+        }
+
+        /* Effet au survol - plus prononcé */
+        .category-card:hover {
+            transform: translateY(-25px) scale(1.02); /* Effet de levée et zoom */
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.25); /* Ombre plus importante */
+            border-color: var(--accent-color);
+        }
+
+        .category-card:hover .category-img {
+            transform: scale(1.15); /* Zoom plus important */
+            filter: brightness(0.8);
+        }
+
+        .category-card:hover .category-overlay {
+            background: linear-gradient(135deg, rgba(139, 115, 85, 0.25) 0%, rgba(0, 0, 0, 0.7) 100%);
+        }
+
+        /* Titre de la catégorie - BEAUCOUP PLUS GRAND */
+        .category-title {
+            font-size: 3.5rem; /* TRÈS AGRANDI de 2.5rem à 3.5rem */
+            font-weight: 300;
+            letter-spacing: 3px; /* Augmenté de 2px à 3px */
+            margin-bottom: 0;
+            font-family: 'Cormorant Garamond', serif;
+            text-transform: uppercase;
+            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.7); /* Ombre de texte plus prononcée */
+            text-align: center;
+            width: 100%;
+            position: relative;
+            z-index: 2;
+            line-height: 1.1;
+        }
+
+        /* =========================================== */
+        /* SECTION TEXTE AVEC IMAGE DE FOND ET BOUTON */
+        /* =========================================== */
+        .categories-text-section {
+            margin-top: 120px; /* Augmenté de 100px à 120px */
+            position: relative;
+            padding: 120px 80px; /* Augmenté de 100px 60px à 120px 80px */
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                        url('skydeco7.jpeg') center/cover no-repeat; /* MODIFIÉ : Image de fond */
+            color: white;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 0; /* MODIFIÉ : PAS DE BORDS ARRONDIS */
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .categories-text-section.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .categories-text-content {
+            max-width: 1000px; /* Augmenté de 900px à 1000px */
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .categories-text-paragraph {
+            font-size: 1.6rem; /* Augmenté de 1.4rem à 1.6rem */
+            line-height: 1.9;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+            margin-bottom: 60px; /* Augmenté de 50px à 60px */
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        .categories-text-paragraph strong {
+            color: var(--accent-light);
+            font-weight: 600;
+        }
+
+        /* Bouton intégré dans le paragraphe - AGRANDI */
+        .categories-text-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 20px; /* Augmenté de 15px à 20px */
+            background: transparent;
+            color: white;
+            padding: 15px 45px; /* Augmenté de 12px 35px à 15px 45px */
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.2rem; /* Augmenté de 1.1rem à 1.2rem */
+            transition: all 0.5s ease;
+            margin-top: 40px; /* Augmenté de 30px à 40px */
+            border: 2px solid white;
+            position: relative;
+            overflow: hidden;
+            font-family: 'Montserrat', sans-serif;
+            border-radius: 50px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .categories-text-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            transition: all 0.6s ease;
+            z-index: 1;
+        }
+
+        .categories-text-button:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--accent-light);
+            transform: translateY(-5px); /* Effet plus prononcé */
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .categories-text-button:hover::before {
+            left: 100%;
+        }
+
+        .categories-text-button i {
+            transition: transform 0.5s ease;
+            font-size: 1.3rem; /* Icône agrandie */
+        }
+
+        .categories-text-button:hover i {
+            transform: translateX(8px); /* Effet plus prononcé */
+        }
+
+        /* =========================================== */
+        /* SECTION PROCESS & QUALITÉ - ROTATION SLOW MO - BACKGROUND BLANC */
+        /* =========================================== */
+        .why-section {
+            padding: 120px 2rem;
+            background-color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .why-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        /* Grille avec photo unique */
+        .why-grid-single {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 100px;
+            margin-top: 80px;
+            align-items: center;
+        }
+
+        @media (max-width: 1100px) {
+            .why-grid-single {
+                gap: 80px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .why-grid-single {
+                grid-template-columns: 1fr;
+                gap: 80px;
+            }
+        }
+
+        /* Colonne de texte */
+        .why-text-column {
+            display: flex;
+            flex-direction: column;
+            gap: 50px;
+        }
+
+        .why-text-item {
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .why-text-item.animate {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Titre */
+        .why-item-title {
+            font-size: 1.7rem;
+            color: var(--dark-color);
+            margin-bottom: 20px;
+            font-weight: 400;
+            letter-spacing: 1px;
+            font-family: 'Cormorant Garamond', serif;
+            position: relative;
+            padding-left: 0;
+            padding-bottom: 20px;
+        }
+
+        .why-item-title::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--accent-color);
+            transition: all 0.8s ease;
+        }
+
+        .why-text-item:hover .why-item-title::before {
+            width: 100px;
+            background-color: var(--accent-light);
+        }
+
+        .why-item-description {
+            font-size: 1.15rem;
+            color: #666;
+            line-height: 1.8;
+            font-family: 'Montserrat', sans-serif;
+            padding-left: 0;
+            border-left: none;
+            transition: all 0.5s ease;
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .why-item-description::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--accent-color);
+            font-weight: bold;
+            opacity: 0;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            transform: translateX(-10px);
+        }
+
+        .why-text-item:hover .why-item-description::before {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Colonne de la photo unique avec rotation SLOW MO */
+        .why-photo-single {
+            position: relative;
+            perspective: 1500px;
+            transform-style: preserve-3d;
+        }
+
+        .why-photo-container-single {
+            position: relative;
+            width: 100%;
+            height: 550px;
+            border-radius: 0; /* MODIFIÉ : PAS DE BORDS ARRONDIS */
+            overflow: hidden;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
+            transform: rotateY(-15deg) rotateX(5deg) rotateZ(1deg);
+            transition: transform 4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            cursor: pointer;
+        }
+
+        /* Animation de rotation en slow motion au survol */
+        .why-photo-single:hover .why-photo-container-single {
+            transform: rotateY(5deg) rotateX(2deg) rotateZ(-1deg) translateY(-10px);
+        }
+
+        @media (max-width: 1100px) {
+            .why-photo-container-single {
+                height: 500px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .why-photo-container-single {
+                height: 450px;
+                max-width: 600px;
+                margin: 0 auto;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .why-photo-container-single {
+                height: 400px;
+            }
+        }
+
+        .why-photo-3d {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: scale(1.1);
+            transition: transform 8s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .why-photo-single:hover .why-photo-3d {
+            transform: scale(1.05);
+        }
+
+        .photo-frame {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            bottom: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 0; /* MODIFIÉ : PAS DE BORDS ARRONDIS */
+            pointer-events: none;
+            z-index: 2;
+            transition: all 2s ease;
+        }
+
+        .why-photo-single:hover .photo-frame {
+            border-color: rgba(255, 255, 255, 0.6);
+            top: 15px;
+            left: 15px;
+            right: 15px;
+            bottom: 15px;
+        }
+
+        .photo-glow {
+            position: absolute;
+            top: -30px;
+            left: -30px;
+            right: -30px;
+            bottom: -30px;
+            background: radial-gradient(circle at center, rgba(139, 115, 85, 0.15) 0%, transparent 70%);
+            border-radius: 30px;
+            opacity: 0;
+            filter: blur(30px);
+            z-index: -1;
+            transition: opacity 3s ease;
+        }
+
+        .why-photo-single:hover .photo-glow {
+            opacity: 0.8;
+        }
+
+        /* Effet de profondeur 3D subtil */
+        .photo-depth {
+            position: absolute;
+            top: 40px;
+            left: 40px;
+            right: 40px;
+            bottom: 40px;
+            background: rgba(0, 0, 0, 0.15);
+            border-radius: 0; /* MODIFIÉ : PAS DE BORDS ARRONDIS */
+            transform: translateZ(-30px);
+            filter: blur(10px);
+            opacity: 0.2;
+            z-index: -1;
+            transition: all 3s ease;
+        }
+
+        .why-photo-single:hover .photo-depth {
+            transform: translateZ(-50px);
+            opacity: 0.4;
+        }
+
+        /* Animation de flottement slow mo */
+        @keyframes subtleFloatSlowMo {
+            0%, 100% {
+                transform: rotateY(-15deg) rotateX(5deg) rotateZ(1deg) translateY(0);
+            }
+            50% {
+                transform: rotateY(-15deg) rotateX(5deg) rotateZ(1deg) translateY(-20px);
+            }
+        }
+
+        .why-photo-container-single {
+            animation: subtleFloatSlowMo 12s infinite ease-in-out;
+        }
+
+        .why-photo-single:hover .why-photo-container-single {
+            animation-play-state: paused;
+        }
+
+        /* =========================================== */
+        /* FOOTER ÉLÉGANT ET MINIMALISTE AVEC CARTE */
+        /* =========================================== */
+        .footer-section {
+            background-color: #0a0a0a;
+            color: white;
+            padding: 80px 0 30px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Section supérieure avec carte et infos minimales */
+        .footer-top {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            margin-bottom: 60px;
+            padding-bottom: 60px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        @media (max-width: 992px) {
+            .footer-top {
+                grid-template-columns: 1fr;
+                gap: 50px;
+            }
+        }
+
+        /* Colonne de contact minimaliste */
+        .footer-contact-minimal {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .footer-logo {
+            width: 180px;
+            height: auto;
+            margin-bottom: 10px;
+            filter: brightness(0) invert(1);
+            opacity: 0.9;
+        }
+
+        .footer-tagline {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.7);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+            line-height: 1.6;
+            max-width: 300px;
+            margin-bottom: 20px;
+        }
+
+        /* Infos contact simples */
+        .contact-info-minimal {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .contact-item-minimal {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: rgba(255, 255, 255, 0.8);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .contact-item-minimal:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .contact-icon-minimal {
+            color: var(--accent-color);
+            font-size: 1rem;
+            width: 20px;
+        }
+
+        .contact-link-minimal {
+            color: inherit;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .contact-link-minimal:hover {
+            color: var(--accent-light);
+        }
+
+        /* Colonne de la map - Style minimaliste */
+        .footer-map-minimal {
+            height: 400px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-map-minimal .google-map {
+            width: 100%;
+            height: 100%;
+            border: none;
+            filter: grayscale(100%) contrast(120%);
+            transition: filter 0.5s ease;
+        }
+
+        .footer-map-minimal:hover .google-map {
+            filter: grayscale(0%) contrast(100%);
+        }
+
+        .map-overlay-minimal {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.4) 100%);
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.5;
+            transition: opacity 0.5s ease;
+        }
+
+        .footer-map-minimal:hover .map-overlay-minimal {
+            opacity: 0.2;
+        }
+
+        /* Section inférieure minimaliste */
+        .footer-bottom-minimal {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .footer-bottom-minimal {
+                flex-direction: column;
+                text-align: center;
+                gap: 25px;
+            }
+        }
+
+        .copyright-minimal {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.5);
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .company-name-minimal {
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 400;
+        }
+
+        .footer-links-minimal {
+            display: flex;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+
+        .footer-link-minimal {
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-family: 'Montserrat', sans-serif;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 5px 0;
+        }
+
+        .footer-link-minimal::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+
+        .footer-link-minimal:hover {
+            color: white;
+        }
+
+        .footer-link-minimal:hover::after {
+            width: 100%;
+        }
+
+        .social-links-minimal {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-link-minimal {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background: rgba(255, 255, 255, 0.05);
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .social-link-minimal:hover {
+            background: var(--accent-color);
+            color: white;
+            transform: translateY(-3px);
+            border-color: var(--accent-color);
+        }
+
+        /* Effet de ligne décorative */
+        .footer-divider {
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            margin: 40px 0;
+        }
+
+        /* Animation d'entrée */
+        .footer-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .footer-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive pour le footer */
+        @media (max-width: 1200px) {
+            .footer-section {
+                padding: 70px 0 25px 0;
+            }
+            
+            .footer-top {
+                gap: 50px;
+                margin-bottom: 50px;
+                padding-bottom: 50px;
+            }
+            
+            .footer-map-minimal {
+                height: 350px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .footer-section {
+                padding: 60px 0 20px 0;
+            }
+            
+            .footer-top {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .footer-map-minimal {
+                height: 300px;
+                order: -1;
+            }
+            
+            .footer-contact-minimal {
+                text-align: center;
+                align-items: center;
+            }
+            
+            .footer-tagline {
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .footer-section {
+                padding: 50px 0 15px 0;
+            }
+            
+            .footer-container {
+                padding: 0 1.5rem;
+            }
+            
+            .footer-top {
+                gap: 35px;
+                margin-bottom: 40px;
+                padding-bottom: 40px;
+            }
+            
+            .footer-map-minimal {
+                height: 280px;
+            }
+            
+            .footer-bottom-minimal {
+                flex-direction: column;
+                gap: 25px;
+            }
+            
+            .footer-links-minimal {
+                justify-content: center;
+                gap: 20px;
+            }
+            
+            .social-links-minimal {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .footer-section {
+                padding: 40px 0 10px 0;
+            }
+            
+            .footer-container {
+                padding: 0 1rem;
+            }
+            
+            .footer-map-minimal {
+                height: 250px;
+            }
+            
+            .footer-tagline {
+                font-size: 1rem;
+            }
+            
+            .contact-item-minimal {
+                font-size: 0.9rem;
+            }
+            
+            .copyright-minimal {
+                font-size: 0.8rem;
+            }
+            
+            .footer-link-minimal {
+                font-size: 0.8rem;
+            }
+            
+            .social-link-minimal {
+                width: 34px;
+                height: 34px;
+                font-size: 0.85rem;
+            }
+        }
+
+        /* Responsive pour cartes agrandies */
+        @media (max-width: 1400px) {
+            .fullscreen-cards-section {
+                min-height: 130vh;
+            }
+            
+            .cards-row.top-row,
+            .cards-row.middle-row {
+                height: calc(42vh - 20px);
+            }
+            
+            .cards-row.bottom-row {
+                height: calc(35vh - 20px);
+            }
+            
+            .hero-separator {
+                height: 150px;
+            }
+            
+            .separator-title {
+                font-size: 1.8rem;
+            }
+            
+            .categories-section,
+            .why-section {
+                padding: 100px 2rem;
+            }
+            
+            .section-title {
+                font-size: 3.2rem;
+            }
+            
+            .section-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            /* CARTES CATÉGORIES RESPONSIVE */
+            .category-card {
+                height: 550px;
+            }
+            
+            .category-title {
+                font-size: 3.2rem;
+            }
+            
+            .categories-text-section {
+                padding: 100px 60px;
+                margin-top: 100px;
+            }
+            
+            .categories-text-paragraph {
+                font-size: 1.5rem;
+            }
+            
+            .categories-text-button {
+                padding: 14px 40px;
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 1200px) {
+            .header-container {
+                max-width: 100%;
+                padding: 0 1.5rem;
+            }
+            
+            .nav-desktop {
+                gap: 1rem;
+            }
+            
+            .nav-link {
+                font-size: 0.9rem;
+                letter-spacing: 0.7px;
+            }
+            
+            .hero {
+                height: 75vh;
+                max-height: 650px;
+            }
+            
+            .fullscreen-cards-section {
+                min-height: 125vh;
+            }
+            
+            .cards-row.top-row,
+            .cards-row.middle-row {
+                height: calc(44vh - 20px);
+            }
+            
+            .cards-row.bottom-row {
+                height: calc(36vh - 20px);
+            }
+            
+            .hero-separator {
+                height: 140px;
+            }
+            
+            .separator-title {
+                font-size: 1.7rem;
+            }
+            
+            .categories-section {
+                padding: 100px 0;
+            }
+            
+            .why-section {
+                padding: 100px 2rem;
+            }
+            
+            .section-title {
+                font-size: 2.8rem;
+            }
+            
+            .section-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .why-grid-single {
+                gap: 80px;
+            }
+            
+            .why-photo-container-single {
+                height: 500px;
+            }
+            
+            .slogan-text {
+                font-size: 2.5rem;
+            }
+            
+            .slogan-subtext {
+                font-size: 1.1rem;
+            }
+            
+            .slide-slogan {
+                bottom: 90px;
+                left: 40px;
+                width: 60%;
+            }
+            
+            /* CARTES CATÉGORIES RESPONSIVE */
+            .categories-grid {
+                gap: 50px;
+            }
+            
+            .category-card {
+                height: 500px;
+            }
+            
+            .category-overlay {
+                padding: 40px;
+            }
+            
+            .category-title {
+                font-size: 2.8rem;
+            }
+            
+            .categories-text-section {
+                margin-top: 90px;
+                padding: 90px 50px;
+            }
+            
+            .categories-text-paragraph {
+                font-size: 1.4rem;
+            }
+            
+            .categories-text-button {
+                padding: 13px 38px;
+                font-size: 1.1rem;
+            }
+            
+            .logo-img {
+                height: 100px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .logo-img {
+                height: 90px;
+            }
+            
+            .nav-desktop {
+                gap: 0.9rem;
+            }
+            
+            .nav-link {
+                font-size: 0.85rem;
+                letter-spacing: 0.6px;
+                padding: 0.2rem 0;
+            }
+            
+            .hero {
+                height: 70vh;
+                max-height: 600px;
+            }
+            
+            .fullscreen-cards-section {
+                min-height: auto;
+                padding: 15px;
+            }
+            
+            .cards-row.top-row,
+            .cards-row.middle-row {
+                height: calc(35vh - 20px);
+            }
+            
+            .cards-row.bottom-row {
+                height: calc(28vh - 20px);
+            }
+            
+            .hero-separator {
+                height: 130px;
+            }
+            
+            .separator-title {
+                font-size: 1.6rem;
+            }
+            
+            .separator-subtitle {
+                font-size: 1rem;
+            }
+            
+            .slogan-text {
+                font-size: 2.2rem;
+            }
+            
+            .slogan-subtext {
+                font-size: 1rem;
+            }
+            
+            .nav-desktop {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+                position: static;
+                font-size: 1.4rem;
+            }
+            
+            .categories-section {
+                padding: 80px 0;
+            }
+            
+            .why-section {
+                padding: 80px 2rem;
+            }
+            
+            .section-title {
+                font-size: 2.5rem;
+            }
+            
+            .section-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .why-grid-single {
+                gap: 70px;
+            }
+            
+            .why-photo-container-single {
+                height: 450px;
+            }
+            
+            .slide-slogan {
+                bottom: 80px;
+                left: 35px;
+                width: 65%;
+            }
+            
+            /* CARTES CATÉGORIES RESPONSIVE */
+            .category-card {
+                height: 450px;
+            }
+            
+            .category-overlay {
+                padding: 35px;
+            }
+            
+            .category-title {
+                font-size: 2.5rem;
+            }
+            
+            .categories-text-section {
+                margin-top: 80px;
+                padding: 80px 40px;
+            }
+            
+            .categories-text-paragraph {
+                font-size: 1.3rem;
+            }
+            
+            .categories-text-button {
+                padding: 12px 35px;
+                font-size: 1.1rem;
+            }
+            
+            .nav-mobile .nav-link {
+                font-size: 0.85rem;
+                margin: 0.5rem 0;
+                font-weight: 350;
+                letter-spacing: 0.6px;
+            }
+            
+            .logo-container {
+                margin-bottom: 0.1rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .logo-img {
+                height: 80px;
+            }
+            
+            .hero {
+                height: 65vh;
+                max-height: 550px;
+            }
+            
+            .carousel-controls {
+                bottom: 20px;
+                right: 20px;
+                gap: 8px;
+            }
+            
+            .carousel-dot {
+                width: 6px;
+                height: 6px;
+            }
+
+            .nav-mobile .nav-link {
+                font-size: 0.85rem;
+                letter-spacing: 0.6px;
+                font-weight: 350;
+            }
+
+            .hero-separator {
+                height: 120px;
+                padding: 0 1.5rem;
+            }
+            
+            .separator-title {
+                font-size: 1.4rem;
+                margin-bottom: 15px;
+            }
+            
+            .separator-subtitle {
+                font-size: 0.95rem;
+            }
+            
+            .separator-line {
+                width: 180px;
+            }
+            
+            .slogan-text {
+                font-size: 2rem;
+            }
+            
+            .slogan-subtext {
+                font-size: 0.95rem;
+            }
+            
+            .fullscreen-cards-section {
+                min-height: auto;
+                padding: 15px;
+            }
+            
+            .cards-row {
+                flex-wrap: wrap;
+                height: auto;
+                padding: 5px;
+            }
+            
+            .cards-row.top-row,
+            .cards-row.middle-row,
+            .cards-row.bottom-row {
+                height: auto;
+            }
+            
+            .large-card {
+                flex: 1 1 calc(33.333% - 20px);
+                min-height: 35vh;
+                margin: 5px;
+            }
+            
+            .bottom-row .large-card {
+                flex: 1 1 calc(50% - 20px);
+                min-height: 30vh;
+            }
+            
+            .categories-section {
+                padding: 60px 0;
+            }
+            
+            .why-section {
+                padding: 60px 1.5rem;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+                padding-bottom: 15px;
+                margin-bottom: 25px;
+            }
+            
+            .section-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .categories-container {
+                padding: 0 1.5rem;
+            }
+            
+            .section-header {
+                margin-bottom: 60px;
+            }
+            
+            /* Adaptation du flip pour mobile */
+            .large-card {
+                perspective: 600px;
+            }
+            
+            .card-back {
+                padding: 15px;
+            }
+            
+            .card-back h3 {
+                font-size: 1.1rem;
+            }
+            
+            .card-back p {
+                font-size: 0.85rem;
+            }
+            
+            .why-text-column {
+                gap: 40px;
+            }
+            
+            .why-item-title {
+                font-size: 1.4rem;
+            }
+            
+            .why-item-description {
+                font-size: 1.05rem;
+            }
+            
+            .why-photo-container-single {
+                height: 400px;
+            }
+            
+            .slide-slogan {
+                bottom: 70px;
+                left: 30px;
+                width: 70%;
+            }
+            
+            /* CARTES CATÉGORIES RESPONSIVE */
+            .categories-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .category-card {
+                height: 500px;
+                max-width: 600px;
+                margin: 0 auto;
+            }
+            
+            .category-overlay {
+                padding: 40px;
+            }
+            
+            .category-title {
+                font-size: 2.5rem;
+            }
+            
+            .categories-text-section {
+                margin-top: 60px;
+                padding: 60px 30px;
+            }
+            
+            .categories-text-paragraph {
+                font-size: 1.2rem;
+                margin-bottom: 50px;
+            }
+            
+            .categories-text-button {
+                padding: 12px 35px;
+                font-size: 1.1rem;
+            }
+            
+            .logo-container {
+                margin-bottom: 0.05rem;
+            }
+            
+            .mobile-menu-btn {
+                top: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo-img {
+                height: 70px;
+            }
+            
+            .nav-link {
+                font-size: 0.8rem;
+                letter-spacing: 0.5px;
+            }
+            
+            .hero {
+                height: 60vh;
+                max-height: 500px;
+            }
+            
+            .carousel-controls {
+                bottom: 15px;
+                right: 15px;
+                gap: 6px;
+            }
+            
+            .carousel-dot {
+                width: 5px;
+                height: 5px;
+            }
+            
+            .nav-mobile .nav-link {
+                font-size: 0.8rem;
+                letter-spacing: 0.5px;
+                margin: 0.4rem 0;
+                font-weight: 350;
+            }
+            
+            .hero-separator {
+                height: 110px;
+                padding: 0 1rem;
+            }
+            
+            .separator-title {
+                font-size: 1.2rem;
+            }
+            
+            .separator-subtitle {
+                font-size: 0.9rem;
+                display: block;
+            }
+            
+            .separator-line {
+                width: 150px;
+            }
+            
+            .slogan-text {
+                font-size: 1.6rem;
+                letter-spacing: 1.5px;
+                line-height: 1.1;
+            }
+            
+            .slogan-subtext {
+                font-size: 0.9rem;
+                letter-spacing: 0.8px;
+            }
+            
+            .fullscreen-cards-section {
+                flex-direction: column;
+                min-height: auto;
+                padding: 10px;
+            }
+            
+            .cards-row {
+                flex-direction: column;
+                flex: none;
+                height: auto;
+                padding: 5px;
+            }
+            
+            .large-card {
+                flex: 1 1 100%;
+                min-height: 40vh;
+                margin: 5px;
+            }
+            
+            .bottom-row .large-card {
+                flex: 1 1 100%;
+                min-height: 35vh;
+            }
+            
+            .categories-section {
+                padding: 50px 0;
+            }
+            
+            .why-section {
+                padding: 50px 1rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .categories-container {
+                padding: 0 1rem;
+            }
+            
+            .card-back-icon {
+                font-size: 1.5rem;
+            }
+            
+            .why-photo-container-single {
+                height: 350px;
+            }
+            
+            .slide-slogan {
+                bottom: 60px;
+                left: 20px;
+                width: 85%;
+            }
+            
+            .slogan-text {
+                font-size: 1.4rem;
+                margin-bottom: 10px;
+            }
+            
+            .slogan-subtext {
+                font-size: 0.85rem;
+            }
+            
+            /* CARTES CATÉGORIES RESPONSIVE */
+            .category-card {
+                height: 400px;
+            }
+            
+            .category-overlay {
+                padding: 30px;
+            }
+            
+            .category-title {
+                font-size: 2rem;
+            }
+            
+            .categories-text-section {
+                margin-top: 50px;
+                padding: 50px 25px;
+            }
+            
+            .categories-text-paragraph {
+                font-size: 1.1rem;
+                margin-bottom: 40px;
+            }
+            
+            .categories-text-button {
+                padding: 10px 30px;
+                font-size: 1rem;
+            }
+            
+            .logo-container {
+                margin-bottom: 0;
+            }
+            
+            .mobile-menu-btn {
+                top: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header avec logo au-dessus des liens - ESPACE RÉDUIT -->
+    <header>
+        <div class="header-container">
+            <!-- Bouton menu mobile -->
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <!-- Logo SkyDeco - LOGO AGRANDI ET ESPACE RÉDUIT -->
+            <div class="logo-container">
+                <img src="sky_logo.png" alt="SkyDeco" class="logo-img" id="logoImage">
+            </div>
+
+            <!-- Navigation Desktop - tous les liens sur une ligne sous le logo - ESPACE RÉDUIT -->
+            <nav class="nav-desktop">
+                <a href="#home" class="nav-link">Accueil</a>
+                <a href="#solutions" class="nav-link">Nos solutions</a>
+                <a href="categorie.html" class="nav-link">Nos catégories</a>
+                <a href="#process" class="nav-link">Process & Qualité</a>
+                <a href="https://wa.me/33612345678" target="_blank" class="nav-link">Contact</a>
+            </nav>
+
+            <!-- Navigation Mobile - ESPACE RÉDUIT -->
+            <nav class="nav-mobile" id="navMobile">
+                <a href="#home" class="nav-link">Accueil</a>
+                <a href="#solutions" class="nav-link">Nos solutions</a>
+                <a href="categorie.html" class="nav-link">Nos catégories</a>
+                <a href="#process" class="nav-link">Process & Qualité</a>
+                <a href="https://wa.me/33612345678" target="_blank" class="nav-link">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Section Hero avec carrousel -->
+    <section class="hero" id="home">
+        <div class="carousel">
+            <!-- Slide 1 avec slogan - MODIFIÉ : EN BAS À GAUCHE -->
+            <div class="carousel-slide active" style="background-image: url('hero1.jpg');">
+                <div class="slogan-overlay"></div>
+                <div class="slide-slogan">
+                    <h2 class="slogan-text">L'Art de Vivre</h2>
+                    <p class="slogan-subtext">Des intérieurs qui racontent votre histoire</p>
+                </div>
+            </div>
+
+            <!-- Slide 2 avec slogan - MODIFIÉ : EN BAS À GAUCHE -->
+            <div class="carousel-slide" style="background-image: url('hero2.jpg');">
+                <div class="slogan-overlay"></div>
+                <div class="slide-slogan">
+                    <h2 class="slogan-text">Excellence en Détails</h2>
+                    <p class="slogan-subtext">Chaque finition, une signature</p>
+                </div>
+            </div>
+
+            <!-- Slide 3 avec slogan - MODIFIÉ : EN BAS À GAUCHE -->
+            <div class="carousel-slide" style="background-image: url('hero3.jpg');">
+                <div class="slogan-overlay"></div>
+                <div class="slide-slogan">
+                    <h2 class="slogan-text">Créativité Illimitée</h2>
+                    <p class="slogan-subtext">Transformer l'espace, sublimer la vie</p>
+                </div>
+            </div>
+
+            <!-- Slide 4 avec slogan - MODIFIÉ : EN BAS À GAUCHE -->
+            <div class="carousel-slide" style="background-image: url('hero4.jpg');">
+                <div class="slogan-overlay"></div>
+                <div class="slide-slogan">
+                    <h2 class="slogan-text">Élégance Intemporelle</h2>
+                    <p class="slogan-subtext">Où le design rencontre l'émotion</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contrôles du carrousel - MODIFIÉS : PLUS PETITS ET EN BAS À DROITE -->
+        <div class="carousel-controls">
+            <button class="carousel-dot active" data-slide="0"></button>
+            <button class="carousel-dot" data-slide="1"></button>
+            <button class="carousel-dot" data-slide="2"></button>
+            <button class="carousel-dot" data-slide="3"></button>
+        </div>
+    </section>
+
+    <!-- PLUS D'ESPACE ENTRE LE HERO ET LA SECTION DES CARTES -->
+    <div class="hero-separator">
+        <div class="separator-content">
+            <div class="separator-line"></div>
+            <h3 class="separator-title">L'excellence dans chaque détail</h3>
+            <p class="separator-subtitle">Découvrez notre univers de créations et de savoir-faire</p>
+        </div>
+    </div>
+
+    <!-- SECTION 8 CARTES EN PLEINE HAUTEUR D'ÉCRAN AVEC EFFET FLIP - HAUTEUR AUGMENTÉE -->
+    <section class="fullscreen-cards-section" id="solutions">
+        <!-- Première rangée : 3 grandes cartes -->
+        <div class="cards-row top-row">
+            <div class="large-card">
+                <div class="card-content">
+                    <div class="card-front">
+                        <div class="image-overlay"></div>
+                        <img src="1.png" 
+                             alt="Design d'intérieur moderne" class="card-background">
+                    </div>
+                    <div class="card-back">
+                        <div class="card-back-icon"><i class="fas fa-home"></i></div>
+                        <h3>Design d'intérieur Moderne</h3>
+                        <p>Solutions créatives pour transformer vos espaces de vie avec élégance et fonctionnalité.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="large-card">
+                <div class="card-content">
+                    <div class="card-front">
+                        <div class="image-overlay"></div>
+                        <img src="2.png" 
+                             alt="Revêtement mural design" class="card-background">
+                    </div>
+                    <div class="card-back">
+                        <div class="card-back-icon"><i class="fas fa-paint-roller"></i></div>
+                        <h3>Revêtements Muraux Design</h3>
+                        <p>Matériaux haut de gamme et textures exclusives pour une décoration murale raffinée.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="large-card">
+                <div class="card-content">
+                    <div class="card-front">
+                        <div class="image-overlay"></div>
+                        <img src="3.png" 
+                             alt="Moulures décoratives" class="card-background">
+                    </div>
+                    <div class="card-back">
+                        <div class="card-back-icon"><i class="fas fa-vector-square"></i></div>
+                        <h3>Moulures Décoratives</h3>
+                        <p>Éléments architecturaux sur mesure pour ajouter du caractère à vos intérieurs.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Deuxième rangée : 3 grandes cartes -->
+        <div class="cards-row middle-row">
+            <div class="large-card">
+                <div class="card-content">
+                    <div class="card-front">
+                        <div class="image-overlay"></div>
+                        <img src="4.png" 
+                             alt="Papiers peints design" class="card-background">
+                    </div>
+                    <div class="card-back">
+                        <div class="card-back-icon"><i class="fas fa-scroll"></i></div>
+                        <h3>Papiers Peints Design</h3>
+                        <p>Collections exclusives de papiers peints pour créer des ambiances uniques et personnalisées.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="large-card">
+                <div class="card-content">
+                    <div class="card-front">
+                        <div class="image-overlay"></div>
+                        <img src="5.png" 
+                             alt="Plinthes décoratives" class="card-background">
+                    </div>
+                    <div class="card-back">
+                        <div class="card-back-icon"><i class="fas fa-border-style"></i></div>
+                        <h3>Plinthes Décoratives</h3>
+                        <p>Finitions raffinées pour compléter vos installations murales avec élégance et précision.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="large-card">
+                <div class="card-content">
+                    <div class="card-front">
+                        <div class="image-overlay"></div>
+                        <img src="6.png" 
+                             alt="Isolation thermique" class="card-background">
+                    </div>
+                    <div class="card-back">
+                        <div class="card-back-icon"><i class="fas fa-thermometer-half"></i></div>
+                        <h3>Isolation Thermique</h3>
+                        <p>Solutions d'isolation performantes combinant confort thermique et esthétique architecturale.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Troisième rangée : 2 grandes cartes (hauteur réduite) -->
+        <div class="cards-row bottom-row">
+            <div class="large-card">
+                <div class="card-content">
+                    <div class="card-front">
+                        <div class="image-overlay"></div>
+                        <img src="7.png" 
+                             alt="Bardage extérieur" class="card-background">
+                    </div>
+                    <div class="card-back">
+                        <div class="card-back-icon"><i class="fas fa-archway"></i></div>
+                        <h3>Bardage Extérieur</h3>
+                        <p>Revêtements extérieurs durables et esthétiques pour valoriser votre façade.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="large-card">
+                <div class="card-content">
+                    <div class="card-front">
+                        <div class="image-overlay"></div>
+                        <img src="8.png" 
+                             alt="Outils de pose" class="card-background">
+                    </div>
+                    <div class="card-back">
+                        <div class="card-back-icon"><i class="fas fa-tools"></i></div>
+                        <h3>Pose Professionnelle</h3>
+                        <p>Mise en œuvre précise par nos équipes d'experts pour des résultats parfaits et durables.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================== -->
+    <!-- SECTION NOS CATÉGORIES - CARTES AGRANDIES SANS BORDURES ARRONDIES -->
+    <!-- =========================================== -->
+    <section class="categories-section" id="categories">
+        <div class="categories-container">
+            <div class="section-header">
+                <h2 class="section-title">Nos Catégories</h2>
+                <p class="section-subtitle">
+                    Découvrez notre gamme complète de solutions de décoration et d'aménagement intérieur, 
+                    conçues pour sublimer chaque espace de vie.
+                </p>
+            </div>
+            
+            <!-- Grille de 4 cartes - CARTES TRÈS AGRANDIES -->
+            <div class="categories-grid">
+                <!-- Carte 1 - Design d'intérieur -->
+                <div class="category-card" onclick="window.location.href='categorie.html?category=interior-design'">
+                    <img src="photo1.jpg" 
+                         alt="Design d'intérieur" class="category-img">
+                    <div class="category-overlay">
+                        <h3 class="category-title">Design d'Intérieur</h3>
+                    </div>
+                </div>
+                
+                <!-- Carte 2 - Revêtements muraux -->
+                <div class="category-card" onclick="window.location.href='categorie.html?category=wall-coverings'">
+                    <img src="photo2.webp" 
+                         alt="Revêtements muraux" class="category-img">
+                    <div class="category-overlay">
+                        <h3 class="category-title">Revêtements Muraux</h3>
+                    </div>
+                </div>
+                
+                <!-- Carte 3 - Moulures & corniches -->
+                <div class="category-card" onclick="window.location.href='categorie.html?category=moldings'">
+                    <img src="photo3.avif" 
+                         alt="Moulures décoratives" class="category-img">
+                    <div class="category-overlay">
+                        <h3 class="category-title">Moulures & Corniches</h3>
+                    </div>
+                </div>
+                
+                <!-- Carte 4 - Papiers peints -->
+                <div class="category-card" onclick="window.location.href='categorie.html?category=wallpapers'">
+                    <img src="photo4.jpeg" 
+                         alt="Papiers peints" class="category-img">
+                    <div class="category-overlay">
+                        <h3 class="category-title">Papiers Peints</h3>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Section texte avec image de fond et bouton intégré -->
+            <div class="categories-text-section">
+                <div class="categories-text-content">
+                    <p class="categories-text-paragraph">
+                        Chaque catégorie représente un univers de possibilités pour transformer votre espace. 
+                        Chez <strong>SkyDeco</strong>, nous sélectionnons avec soin les <strong>matériaux les plus nobles</strong> 
+                        et développons des <strong>solutions sur mesure</strong> pour répondre à vos attentes les plus exigeantes. 
+                        Notre équipe d'experts vous guide dans chaque étape, de la conception à la réalisation.
+                    </p>
+                    <a href="categorie.html" class="categories-text-button">
+                        Explorer nos catégories
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================== -->
+    <!-- SECTION PROCESS & QUALITÉ - ROTATION SLOW MO - BACKGROUND BLANC -->
+    <!-- =========================================== -->
+    <section class="why-section" id="process">
+        <div class="why-container">
+            <h2 class="section-title">Pourquoi choisir SkyDeco</h2>
+            
+            <div class="why-grid-single">
+                <!-- Colonne de texte -->
+                <div class="why-text-column">
+                    <div class="why-text-item">
+                        <h3 class="why-item-title">Expertise Technique et Esthétique</h3>
+                        <p class="why-item-description">
+                            Notre équipe d'experts combine savoir-faire technique et sens esthétique pour créer des espaces exceptionnels qui allient fonctionnalité et beauté.
+                        </p>
+                    </div>
+                    
+                    <div class="why-text-item">
+                        <h3 class="why-item-title">Matériaux Haut de Gamme</h3>
+                        <p class="why-item-description">
+                            Nous sélectionnons des matériaux premium chez les meilleurs fournisseurs européens pour garantir une qualité et une durabilité exceptionnelles.
+                        </p>
+                    </div>
+                    
+                    <div class="why-text-item">
+                        <h3 class="why-item-title">Solutions sur Mesure</h3>
+                        <p class="why-item-description">
+                            Chaque projet est unique : nous concevons des solutions personnalisées adaptées à vos besoins, à votre espace et à votre style de vie.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Colonne de la photo unique avec effet 3D et rotation SLOW MO -->
+                <div class="why-photo-single">
+                    <div class="why-photo-container-single">
+                        <img src="hero3.jpg" 
+                             alt="Excellence SkyDeco" class="why-photo-3d">
+                        <div class="photo-frame"></div>
+                        <div class="photo-depth"></div>
+                    </div>
+                    <div class="photo-glow"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================== -->
+    <!-- FOOTER ÉLÉGANT ET MINIMALISTE AVEC CARTE -->
+    <!-- =========================================== -->
+    <footer class="footer-section" id="footer">
+        <div class="footer-container">
+            <!-- Section supérieure avec carte et infos minimales -->
+            <div class="footer-top">
+                <!-- Colonne de contact minimaliste -->
+                <div class="footer-contact-minimal">
+                    <img src="sky_logo.png" alt="SkyDeco" class="footer-logo">
+                    <p class="footer-tagline">
+                        Créateurs d'intérieurs exceptionnels depuis 2010. 
+                        L'excellence au service de votre espace de vie.
+                    </p>
+                    
+                    <div class="contact-info-minimal">
+                        <div class="contact-item-minimal">
+                            <i class="fas fa-map-marker-alt contact-icon-minimal"></i>
+                            <span>123 Avenue du Design, 75000 Paris</span>
+                        </div>
+                        <a href="tel:+33123456789" class="contact-item-minimal contact-link-minimal">
+                            <i class="fas fa-phone contact-icon-minimal"></i>
+                            <span>+33 1 23 45 67 89</span>
+                        </a>
+                        <a href="mailto:contact@skydeco.com" class="contact-item-minimal contact-link-minimal">
+                            <i class="fas fa-envelope contact-icon-minimal"></i>
+                            <span>contact@skydeco.com</span>
+                        </a>
+                        <a href="https://wa.me/33612345678" target="_blank" class="contact-item-minimal contact-link-minimal">
+                            <i class="fab fa-whatsapp contact-icon-minimal"></i>
+                            <span>WhatsApp</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Colonne de la map - Style minimaliste -->
+                <div class="footer-map-minimal">
+                    <!-- Google Maps Embed -->
+                    <iframe 
+                        class="google-map"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2624.991625693759!2d2.292292615509614!3d48.8583700792875!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e66e2964e34e2d%3A0x8ddca9ee380ef7e0!2sTour%20Eiffel!5e0!3m2!1sfr!2sfr!4v1631195214240!5m2!1sfr!2sfr" 
+                        allowfullscreen="" 
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                    <div class="map-overlay-minimal"></div>
+                </div>
+            </div>
+            
+            <!-- Ligne décorative -->
+            <div class="footer-divider"></div>
+            
+            <!-- Section inférieure minimaliste -->
+            <div class="footer-bottom-minimal">
+                <p class="copyright-minimal">
+                    © 2023 <span class="company-name-minimal">SkyDeco</span>. Tous droits réservés.
+                </p>
+                
+                <div class="footer-links-minimal">
+                    <a href="#" class="footer-link-minimal">Mentions légales</a>
+                    <a href="#" class="footer-link-minimal">Confidentialité</a>
+                    <a href="#" class="footer-link-minimal">CGV</a>
+                </div>
+                
+                <div class="social-links-minimal">
+                    <a href="#" class="social-link-minimal" aria-label="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="social-link-minimal" aria-label="Pinterest">
+                        <i class="fab fa-pinterest-p"></i>
+                    </a>
+                    <a href="#" class="social-link-minimal" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Carrousel JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            const slides = document.querySelectorAll('.carousel-slide');
+            const dots = document.querySelectorAll('.carousel-dot');
+            let currentSlide = 0;
+            let slideInterval;
+
+            // Fonction pour changer de slide
+            function goToSlide(n) {
+                slides[currentSlide].classList.remove('active');
+                dots[currentSlide].classList.remove('active');
+                currentSlide = (n + slides.length) % slides.length;
+                slides[currentSlide].classList.add('active');
+                dots[currentSlide].classList.add('active');
+            }
+
+            // Fonction pour passer au slide suivant
+            function nextSlide() {
+                goToSlide(currentSlide + 1);
+            }
+
+            // Événements pour les points de contrôle
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    clearInterval(slideInterval);
+                    goToSlide(index);
+                    startCarousel();
+                });
+            });
+
+            // Démarrer le carrousel automatique
+            function startCarousel() {
+                slideInterval = setInterval(nextSlide, 5000);
+            }
+
+            // Menu mobile
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const navMobile = document.getElementById('navMobile');
+
+            mobileMenuBtn.addEventListener('click', () => {
+                navMobile.classList.toggle('active');
+            });
+
+            // Fermer le menu mobile en cliquant sur un lien
+            document.querySelectorAll('.nav-mobile .nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    navMobile.classList.remove('active');
+                });
+            });
+
+            // Fermer le menu mobile en cliquant en dehors
+            document.addEventListener('click', (e) => {
+                if (!navMobile.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+                    navMobile.classList.remove('active');
+                }
+            });
+
+            // Animation au défilement avec Intersection Observer
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -100px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        if (entry.target.classList.contains('category-card')) {
+                            entry.target.classList.add('animate');
+                        }
+                        if (entry.target.classList.contains('categories-text-section')) {
+                            setTimeout(() => {
+                                entry.target.classList.add('animate');
+                            }, 300);
+                        }
+                        if (entry.target.classList.contains('why-text-item')) {
+                            setTimeout(() => {
+                                entry.target.classList.add('animate');
+                            }, 200);
+                        }
+                        if (entry.target.classList.contains('why-photo-single')) {
+                            setTimeout(() => {
+                                entry.target.style.opacity = '1';
+                                entry.target.style.transform = 'translateY(0)';
+                            }, 300);
+                        }
+                        if (entry.target.classList.contains('footer-section')) {
+                            setTimeout(() => {
+                                entry.target.classList.add('visible');
+                            }, 100);
+                        }
+                    }
+                });
+            }, observerOptions);
+
+            // Observer les éléments
+            document.querySelectorAll('.category-card').forEach(item => observer.observe(item));
+            document.querySelectorAll('.categories-text-section').forEach(item => observer.observe(item));
+            document.querySelectorAll('.why-text-item').forEach(item => observer.observe(item));
+            document.querySelectorAll('.why-photo-single').forEach(photo => observer.observe(photo));
+            document.querySelectorAll('.footer-section').forEach(footer => observer.observe(footer));
+
+            // Démarrer le carrousel
+            startCarousel();
+            
+            // Navigation fluide pour les ancres internes seulement
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    // Vérifier si c'est une ancre interne (commence par #)
+                    if (targetId.startsWith('#')) {
+                        const targetElement = document.querySelector(targetId);
+                        if (targetElement) {
+                            e.preventDefault();
+                            window.scrollTo({
+                                top: targetElement.offsetTop - 100,
+                                behavior: 'smooth'
+                            });
+                            
+                            // Fermer le menu mobile si ouvert
+                            navMobile.classList.remove('active');
+                        }
+                    }
+                    // Si c'est un lien vers categorie.html ou WhatsApp, on le laisse fonctionner normalement
+                });
+            });
+            
+            // Effet flip supplémentaire au clic pour mobile (en plus du hover)
+            const flipCards = document.querySelectorAll('.large-card');
+            flipCards.forEach(card => {
+                card.addEventListener('touchstart', function() {
+                    this.classList.toggle('flipped');
+                });
+            });
+
+            // Animation d'entrée progressive pour les éléments de texte
+            const whyTextItems = document.querySelectorAll('.why-text-item');
+            whyTextItems.forEach((item, index) => {
+                item.style.transitionDelay = `${index * 0.25}s`;
+            });
+            
+            // Animation des cartes catégories au survol
+            const categoryCards = document.querySelectorAll('.category-card');
+            categoryCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-25px) scale(1.02)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+            
+            // Effet de parallaxe pour la carte
+            const footerMap = document.querySelector('.footer-map-minimal');
+            if (footerMap) {
+                window.addEventListener('scroll', () => {
+                    const scrollPosition = window.pageYOffset;
+                    const mapPosition = footerMap.getBoundingClientRect().top + scrollPosition;
+                    const windowHeight = window.innerHeight;
+                    
+                    if (scrollPosition + windowHeight > mapPosition) {
+                        const parallaxValue = (scrollPosition + windowHeight - mapPosition) * 0.05;
+                        footerMap.style.transform = `translateY(${Math.min(parallaxValue, 0)}px)`;
+                    }
+                });
+            }
+            
+            // Animation des éléments de contact au survol
+            const contactItems = document.querySelectorAll('.contact-item-minimal');
+            contactItems.forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateX(5px)';
+                });
+                
+                item.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateX(0)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
